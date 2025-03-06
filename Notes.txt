@@ -1,5 +1,5 @@
 # To publish a new version to npm
 # make code changes
 # npm run rollup
-# update versioning number in package.json
+# update versioning number in package.json (ex: 1.0.0 -> 1.0.1)
 # npm publish
