@@ -11,6 +11,24 @@
 /build
 /storybook-static
 
+# Storybook
+.storybook/results
+.storybook/debug
+.storybook/config.cjs-e
+.storybook/*.log
+storybook.log
+build-storybook.log
+.storybook-out
+
+# Chromatic (if you use it for Storybook visual testing)
+.chromatic
+.chromatic-cache
+chromatic-build-*.xml
+chromatic.config.json
+
+# Storybook MDX cached builds
+**/.mdx-data
+
 # IDE files
 /.idea
 .vscode/*

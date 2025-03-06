@@ -43,6 +43,7 @@
         "@storybook/react": "^8.6.4",
         "@storybook/react-vite": "^8.6.4",
         "@storybook/test": "^8.6.4",
+        "@types/prismjs": "^1.26.5",
         "@types/react": "^19.0.0",
         "@types/react-dom": "^19.0.0",
         "rollup": "^4.34.9",
@@ -56,6 +57,7 @@
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.0",
         "@mui/icons-material": "^6.4.7",
-        "@mui/material": "^6.4.7"
+        "@mui/material": "^6.4.7",
+        "prismjs": "^1.29.0"
     }
 }
