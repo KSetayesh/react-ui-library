@@ -1,0 +1,5 @@
+# To publish a new version to npm
+# make code changes
+# npm run rollup
+# update versioning number in package.json
+# npm publish
