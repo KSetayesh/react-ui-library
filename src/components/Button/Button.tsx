@@ -41,7 +41,7 @@ import { styled } from '@mui/material/styles';
 import Button, { ButtonProps } from '@mui/material/Button';
 
 // Define the CustomButton component with specific styles
-export const CustomButton = styled(Button)({
+const CustomButton = styled(Button)({
     borderRadius: '8px',
     color: 'black',
     border: '1px solid transparent',

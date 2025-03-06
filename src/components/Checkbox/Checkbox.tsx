@@ -8,7 +8,7 @@ export type CheckBoxComponentProps = {
     label: string;
 };
 
-export const StyledFormControlLabel = styled(FormControlLabel)(({ theme }) => ({
+const StyledFormControlLabel = styled(FormControlLabel)(({ theme }) => ({
     margin: theme.spacing(0.5),
 }));
 
