@@ -30,6 +30,7 @@ const meta = {
     tags: ['autodocs'],
     parameters: {
         componentSubtitle: 'Text Field Component',
+        layout: 'centered',
         docs: {
             description: {
                 component: 'A Material UI based text field component with custom styling.'

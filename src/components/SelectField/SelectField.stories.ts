@@ -31,6 +31,7 @@ const meta = {
     tags: ['autodocs'],
     parameters: {
         componentSubtitle: 'Select Field Component',
+        layout: 'centered',
         docs: {
             description: {
                 component: 'A Material UI based select field component with custom styling.'

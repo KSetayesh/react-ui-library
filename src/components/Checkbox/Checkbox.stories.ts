@@ -27,6 +27,7 @@ const meta = {
     component: CheckboxWithState,
     parameters: {
         componentSubtitle: 'Checkbox Component',
+        layout: 'centered',
         docs: {
             description: {
                 component: 'A Material UI based checkbox component with custom styling.'

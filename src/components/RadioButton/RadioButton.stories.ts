@@ -30,6 +30,7 @@ const meta = {
     tags: ['autodocs'],
     parameters: {
         componentSubtitle: 'Radio Button Component',
+        layout: 'centered',
         docs: {
             description: {
                 component: 'A Material UI based radio button group component with custom styling.'
