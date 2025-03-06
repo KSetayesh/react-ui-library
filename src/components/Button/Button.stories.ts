@@ -59,7 +59,7 @@ import { CustomButtonComponent } from './Button';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-    title: 'Example/Button',
+    title: 'Components/Button',
     component: CustomButtonComponent,
     parameters: {
         // Optional parameter to center the component in the Canvas

@@ -1,3 +1,4 @@
-export * from './stories/Button';
-export * from './stories/Header';
-export * from './stories/Page';
+export * from './components/Button/Button';
+export * from './components/Header/Header';
+export * from './components/Page/Page';
+export * from './components/Checkbox/Checkbox';
