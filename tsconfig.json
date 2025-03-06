@@ -1,19 +1,18 @@
 {
     "compilerOptions": {
-        "outDir": "dist",
+        "target": "ESNext",
         "module": "ESNext",
-        "target": "ES6",
-        "declaration": true,
-        "declarationMap": true,
-        "sourceMap": true,
-        "jsx": "react-jsx",
-        "jsxImportSource": "react",
-        "moduleResolution": "node",
         "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
         "strict": true,
-        "allowSyntheticDefaultImports": true,
         "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true
+        "rootDir": "src",
+        "jsx": "react",
+        "declaration": true,
+        "sourceMap": true,
+        "outDir": "dist",
+        "moduleResolution": "Node",
+        "allowSyntheticDefaultImports": true
     },
     "include": [
         "src"
