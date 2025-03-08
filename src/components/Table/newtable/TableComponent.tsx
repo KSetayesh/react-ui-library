@@ -1,8 +1,7 @@
 import React, { useState, useEffect, JSX } from 'react';
-import { AbstractTable } from './AbstractTable_2.helper';
+import { AbstractTable, ExportFormat } from './AbstractTable_2.helper';
 import { AbstractColumn } from './AbstractColumn_2.helper';
 import { FilterCriteria, FilterOperator } from './TableFilter';
-import { FileType } from './FileType';
 
 // Material-UI Imports
 import {
@@ -146,26 +145,8 @@ export function TableComponent<T>({
             return;
         }
 
-        // Create a filter for each column with CONTAINS operator
-        const searchFilters: FilterCriteria<T>[] = columns
-            .filter(column => column.showColumn)
-            .map(column => ({
-                columnKey: column.key,
-                operator: FilterOperator.CONTAINS,
-                value: query,
-                caseSensitive: false
-            } as FilterCriteria<T>));
-
-        // Apply filters with OR logic (using a custom approach since our filter utility uses AND)
-        const queryLower = query.toLowerCase();
-        const searchResults = table.originalData.filter(item => {
-            return columns.some(column => {
-                const value = item[column.accessor];
-                if (value === null || value === undefined) return false;
-                return String(value).toLowerCase().includes(queryLower);
-            });
-        });
-
+        // Use the table's search method
+        const searchResults = table.searchData(query, columns);
         setData(searchResults);
         setPage(0); // Reset to first page when searching
     };
@@ -239,13 +220,9 @@ export function TableComponent<T>({
 
     const handleDeleteConfirm = () => {
         if (rowToDelete !== null) {
-            console.log('Delete row:', data[rowToDelete]);
-            // Implement your delete logic here
-
-            // Update data after deletion
-            const newData = [...data];
-            newData.splice(rowToDelete, 1);
-            setData(newData);
+            // Use the table's delete method
+            table.deleteRow(rowToDelete);
+            setData([...table.data]);
 
             // Close dialog
             setDeleteDialogOpen(false);
@@ -373,9 +350,9 @@ export function TableComponent<T>({
         setExportMenuAnchor(null);
     };
 
-    const handleExport = (format: FileType) => {
-        console.log(`Exporting data in ${format} format`);
-        // Implement your export logic here
+    const handleExport = (format: ExportFormat) => {
+        // Use the table's export method
+        table.exportData(format);
         handleExportClose();
     };
 
@@ -579,35 +556,16 @@ export function TableComponent<T>({
 
                                         {columns.map(column => {
                                             const cellValue = row[column.accessor];
-                                            // Use unknown as intermediate type before converting to ReactNode
-                                            let displayValue: React.ReactNode = String(cellValue !== null && cellValue !== undefined ? cellValue : '');
-
-                                            // Format based on column properties
-                                            if (column.isDollarAmount && typeof cellValue === 'number') {
-                                                displayValue = `$${cellValue.toLocaleString(undefined, {
-                                                    minimumFractionDigits: 2,
-                                                    maximumFractionDigits: 2,
-                                                })}`;
-                                            } else if (column.addSuffix && cellValue !== null && cellValue !== undefined) {
-                                                displayValue = `${cellValue}${column.addSuffix}`;
-                                            } else if (cellValue instanceof Date) {
-                                                displayValue = cellValue.toLocaleDateString();
-                                            }
+                                            // Use the column's formatCellValue method
+                                            const displayValue: React.ReactNode = column.formatCellValue(cellValue);
 
                                             return (
                                                 <TableCell key={column.key}>
-                                                    {column.isUrl && typeof cellValue === 'string' ? (
+                                                    {column.shouldRenderAsLink(cellValue) ? (
                                                         <Link
-                                                            href={cellValue}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            onClick={(e) => e.stopPropagation()}
-                                                        >
-                                                            {displayValue}
-                                                        </Link>
-                                                    ) : column.routeTo ? (
-                                                        <Link
-                                                            href={`${column.routeTo}/${cellValue}`}
+                                                            href={column.getLinkUrl(cellValue)}
+                                                            target={column.isUrl ? "_blank" : undefined}
+                                                            rel={column.isUrl ? "noopener noreferrer" : undefined}
                                                             onClick={(e) => e.stopPropagation()}
                                                         >
                                                             {displayValue}

@@ -7,12 +7,14 @@ export type CollumnsCollection<T> = {
     columnsAsMap: Map<string, AbstractColumn<T>>;
 };
 
+export type ExportFormat = FileType.CSV | FileType.XLSX | FileType.PDF;
+
 export type ExportOptions = {
     buttonName: string;
     isEnabled: boolean;
     filename?: string;
     includeHeaders?: boolean;
-    formats?: (FileType.CSV | FileType.XLSX | FileType.PDF)[];
+    formats?: ExportFormat[];
 };
 
 export abstract class AbstractTable<T> {
@@ -104,6 +106,51 @@ export abstract class AbstractTable<T> {
             }
             return 0;
         });
+    }
+
+    searchData(query: string, columns?: AbstractColumn<T>[]): T[] {
+        if (!query.trim()) {
+            return [...this._data];
+        }
+
+        const columnsToSearch = columns || this._columnsCollection.columns.filter(col => col.showColumn);
+        const queryLower = query.toLowerCase();
+
+        return this._originalData.filter(item => {
+            return columnsToSearch.some(column => {
+                const value = item[column.accessor];
+                if (value === null || value === undefined) return false;
+                return String(value).toLowerCase().includes(queryLower);
+            });
+        });
+    }
+
+    exportData(format: ExportFormat): void {
+        if (!this._exportOptions?.isEnabled) {
+            throw new Error('Export is not enabled for this table');
+        }
+
+        if (!this._exportOptions.formats?.includes(format)) {
+            throw new Error(`Export format ${format} is not supported`);
+        }
+
+        // Implement export logic based on format
+        console.log(`Exporting data in ${format} format`);
+        // ...implementation for each format
+    }
+
+    // Add to AbstractTable
+    deleteRow(index: number): void {
+        if (!this.isDeletable) {
+            throw new Error('This table does not support deletion');
+        }
+
+        if (index < 0 || index >= this._data.length) {
+            throw new Error('Index out of bounds');
+        }
+
+        // Remove the row
+        this._data.splice(index, 1);
     }
 
     /**

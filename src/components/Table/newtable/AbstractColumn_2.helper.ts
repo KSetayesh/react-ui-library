@@ -91,4 +91,39 @@ export abstract class AbstractColumn<T> {
         return this._routeTo;
     }
 
+    // Add this method to AbstractColumn
+    formatCellValue(value: any): React.ReactNode {
+        if (value === null || value === undefined) {
+            return '';
+        }
+
+        // Format based on column properties
+        if (this.isDollarAmount && typeof value === 'number') {
+            return `$${value.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+            })}`;
+        } else if (this.addSuffix && value !== null && value !== undefined) {
+            return `${value}${this.addSuffix}`;
+        } else if (value instanceof Date) {
+            return value.toLocaleDateString();
+        }
+
+        return String(value);
+    }
+
+    // Add to AbstractColumn
+    shouldRenderAsLink(value: any): boolean {
+        return (this.isUrl && typeof value === 'string') || this.routeTo !== undefined;
+    }
+
+    getLinkUrl(value: any): string {
+        if (this.isUrl && typeof value === 'string') {
+            return value;
+        } else if (this.routeTo) {
+            return `${this.routeTo}/${value}`;
+        }
+        return '';
+    }
+
 }
