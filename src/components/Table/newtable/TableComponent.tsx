@@ -52,14 +52,19 @@ import {
     Search as SearchIcon
 } from '@mui/icons-material';
 
+enum SortDirection {
+    ASC = 'asc',
+    DESC = 'desc'
+}
+
 // Types
 type SortState = {
     column: string | null;
-    direction: 'asc' | 'desc';
+    direction: SortDirection; // 'asc' | 'desc';
 };
 
-type FilterState = {
-    filters: FilterCriteria<any>[];
+type FilterState<T> = {
+    filters: FilterCriteria<T>[];
     isActive: boolean;
 };
 
@@ -83,8 +88,8 @@ export function TableComponent<T>({
     const [columns, setColumns] = useState<AbstractColumn<T>[]>(
         table.columnsCollection.columns.filter(col => col.showColumn)
     );
-    const [sortState, setSortState] = useState<SortState>({ column: null, direction: 'asc' });
-    const [filterState, setFilterState] = useState<FilterState>({ filters: [], isActive: false });
+    const [sortState, setSortState] = useState<SortState>({ column: null, direction: SortDirection.ASC });
+    const [filterState, setFilterState] = useState<FilterState<T>>({ filters: [], isActive: false });
     const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set());
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -104,8 +109,8 @@ export function TableComponent<T>({
             return;
         }
 
-        const isAsc = sortState.column === columnKey && sortState.direction === 'asc';
-        const direction = isAsc ? 'desc' : 'asc';
+        const isAsc = sortState.column === columnKey && sortState.direction === SortDirection.ASC;
+        const direction = isAsc ? SortDirection.DESC : SortDirection.ASC;
 
         // Update sort state
         setSortState({ column: columnKey, direction });
@@ -504,7 +509,7 @@ export function TableComponent<T>({
                                         <Tooltip title={column.detailedDescription || ""} arrow>
                                             <TableSortLabel
                                                 active={sortState.column === column.key}
-                                                direction={sortState.column === column.key ? sortState.direction : 'asc'}
+                                                direction={sortState.column === column.key ? sortState.direction : SortDirection.ASC}
                                                 onClick={() => handleSort(column.key)}
                                             >
                                                 {column.title}
