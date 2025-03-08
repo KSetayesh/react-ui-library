@@ -1,6 +1,6 @@
 import React, { useState, useEffect, JSX } from 'react';
-import { AbstractTable, ExportFormat } from './AbstractTable_2.helper';
-import { AbstractColumn } from './AbstractColumn_2.helper';
+import { AbstractTable, ExportFormat } from './AbstractTable.helper';
+import { AbstractColumn } from './AbstractColumn.helper';
 import { FilterCriteria, FilterOperator } from './TableFilter';
 
 // Material-UI Imports

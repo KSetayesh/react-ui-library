@@ -1,4 +1,4 @@
-import { AbstractColumn } from "./AbstractColumn_2.helper";
+import { AbstractColumn } from "./AbstractColumn.helper";
 import { FileType } from "./FileType";
 import { FilterCriteria, TableFilter } from "./TableFilter";
 

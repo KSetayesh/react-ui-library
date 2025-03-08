@@ -1,4 +1,4 @@
-import { AbstractColumn } from "./AbstractColumn_2.helper";
+import { AbstractColumn } from "./AbstractColumn.helper";
 
 // Define filter operation types
 export enum FilterOperator {
