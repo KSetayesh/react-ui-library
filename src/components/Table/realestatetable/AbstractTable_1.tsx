@@ -1,5 +1,4 @@
-import React from 'react';
-// import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 // import {
 //     Table,
 //     TableBody,
@@ -23,8 +22,10 @@ import React from 'react';
 // import CloseIcon from '@mui/icons-material/Close';
 // import { Link } from 'react-router-dom';
 // import ConfirmationDialog from '../../ConfirmationDialog/ConfirmationDialog';
+// import { InputType, PrimitiveType, SortDirection } from './ClientTypes';
+// import { AbstractTable, TableColumn, TableData } from './AbstractTable_1.helper';
 // // import NewExportCSVButton from './ExportCSVButton';
-// import { AbstractTable, TableColumn, TableData } from '../newtabledata/tabledata/AbstractTable';
+// // import { AbstractTable, TableColumn, TableData } from '../newtabledata/tabledata/AbstractTable';
 
 // const TEMP_FEATURE_FLAG = true;
 
@@ -102,23 +103,23 @@ import React from 'react';
 //     Y = MonthlyInvestmentDetailsResponseDTO
 //     X = InvestmentBreakdownTableType
 // */
-// export interface ReusableTableProps<K extends TableType, Y, X> {
+// export interface ReusableTableProps<Y, X> {   //<K extends TableType, Y, X> {
 //     data: Y[];
-//     tableHandler: AbstractTable<K, Y, X>;
+//     tableHandler: AbstractTable<Y, X>; //<K, Y, X>;
 //     onRowClick?: (item: Y) => void;
 //     tableSeperatorDetails?: TableSeparatorDetails;
 //     tableActions?: TableActions<Y>;
 //     rowLimit?: number;
 // };
 
-// const ReusableTable = <K extends TableType, Y, X>({
+// const ReusableTable = <Y, X>({ // <K extends TableType, Y, X>({
 //     data,
 //     tableHandler,
 //     onRowClick,
 //     tableSeperatorDetails,
 //     tableActions,
 //     rowLimit,
-// }: ReusableTableProps<K, Y, X>) => {
+// }: ReusableTableProps<Y, X>) => { //ReusableTableProps<K, Y, X>) => {
 
 //     const getTableData = (): TableData<Y, X> => {
 //         return tableHandler.getTableData(data, tableType);
@@ -404,9 +405,9 @@ import React from 'react';
 //                 fullWidth
 //                 size="small"
 //                 variant="outlined"
-//                 InputProps={{
-//                     style: { fontSize: '0.9rem' }, // Adjust font size to match table data
-//                 }}
+//             // InputProps={{
+//             //     style: { fontSize: '0.9rem' }, // Adjust font size to match table data
+//             // }}
 //             />
 //         );
 //     };
@@ -506,30 +507,30 @@ import React from 'react';
 //         return <></>;
 //     };
 
-//     const getTableOptions = () => {
-//         const tableOptions: X[] = tableHandler.getAllSubTableTypes();
-//         if (tableType && (tableOptions.length > 1)) {
-//             return (
-//                 <Box mb={2}>
-//                     <Typography variant="h6" gutterBottom>Select Table Type</Typography>
-//                     <Box display="flex" flexDirection="row">
-//                         {tableOptions.map((option) => (
-//                             <Box key={String(option)} mr={2}>
-//                                 <Button
-//                                     variant={tableType === option ? "contained" : "outlined"}
-//                                     color="primary"
-//                                     onClick={() => setTableType(option)}
-//                                 >
-//                                     {String(option)}
-//                                 </Button>
-//                             </Box>
-//                         ))}
-//                     </Box>
-//                 </Box>
-//             );
-//         }
-//         return <></>;
-//     };
+//     // const getTableOptions = () => {
+//     //     const tableOptions: X[] = tableHandler.getAllSubTableTypes();
+//     //     if (tableType && (tableOptions.length > 1)) {
+//     //         return (
+//     //             <Box mb={2}>
+//     //                 <Typography variant="h6" gutterBottom>Select Table Type</Typography>
+//     //                 <Box display="flex" flexDirection="row">
+//     //                     {tableOptions.map((option) => (
+//     //                         <Box key={String(option)} mr={2}>
+//     //                             <Button
+//     //                                 variant={tableType === option ? "contained" : "outlined"}
+//     //                                 color="primary"
+//     //                                 onClick={() => setTableType(option)}
+//     //                             >
+//     //                                 {String(option)}
+//     //                             </Button>
+//     //                         </Box>
+//     //                     ))}
+//     //                 </Box>
+//     //             </Box>
+//     //         );
+//     //     }
+//     //     return <></>;
+//     // };
 
 //     const getTable = () => {
 //         return (<Box width="95%">
@@ -557,7 +558,7 @@ import React from 'react';
 
 //     return (
 //         <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
-//             {getTableOptions()}
+//             {/* {getTableOptions()} */}
 //             {getExportCSVButton()}
 //             {getTable()}
 //             <ConfirmationDialog
