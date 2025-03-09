@@ -10,6 +10,9 @@
 /dist
 /build
 /storybook-static
+/storybook-static/iframe.html
+/storybook-static/index.json
+/storybook-static/project.json
 
 # Storybook
 .storybook/results
