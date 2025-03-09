@@ -8,8 +8,8 @@ import {
     styled
 } from '@mui/material';
 import { Clear as ClearIcon } from '@mui/icons-material';
-import { FilterCriteria } from '../TableFilter';
-import { AbstractTable } from '../AbstractTable.helper';
+import { FilterCriteria } from '../models/TableFilter';
+import { AbstractTable } from '../models/AbstractTable';
 
 // Styled Components
 const FilterContainer = styled(Box)(({ theme }) => ({

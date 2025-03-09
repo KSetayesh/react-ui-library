@@ -15,8 +15,8 @@ import {
     Edit as EditIcon,
     Delete as DeleteIcon
 } from '@mui/icons-material';
-import { AbstractTable } from '../AbstractTable.helper';
-import { AbstractColumn } from '../AbstractColumn.helper';
+import { AbstractTable } from '../models/AbstractTable';
+import { AbstractColumn } from '../models/AbstractColumn';
 
 // Styled Components
 const StyledTableBodyCell = styled(TableCell)(({ theme }) => ({

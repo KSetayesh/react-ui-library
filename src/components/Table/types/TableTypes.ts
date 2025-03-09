@@ -1,6 +1,6 @@
-import { AbstractColumn } from "../AbstractColumn.helper";
-import { AbstractTable } from "../AbstractTable.helper";
-import { FilterCriteria } from "../TableFilter";
+import { AbstractColumn } from "../models/AbstractColumn";
+import { AbstractTable } from "../models/AbstractTable";
+import { FilterCriteria } from "../models/TableFilter";
 
 // Enum for sort direction
 export enum SortDirection {

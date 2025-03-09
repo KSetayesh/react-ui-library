@@ -1,4 +1,4 @@
-import { InputType } from "./InputType";
+import { InputType } from "../types/InputType";
 
 
 export abstract class AbstractColumn<T> {

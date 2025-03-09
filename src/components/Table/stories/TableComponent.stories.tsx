@@ -2,11 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import React from 'react';
 
-import { TableComponent } from './TableComponent';
-import { AbstractTable, ExportOptions } from '../AbstractTable.helper';
-import { AbstractColumn } from '../AbstractColumn.helper';
-import { InputType } from '../InputType';
-import { FileType } from '../FileType';
+import { TableComponent } from '../component/TableComponent';
+import { AbstractTable, ExportOptions } from '../models/AbstractTable';
+import { AbstractColumn } from '../models/AbstractColumn';
+import { InputType } from '../types/InputType';
+import { FileType } from '../types/FileType';
 
 // Example data type
 type User = {

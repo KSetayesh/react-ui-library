@@ -9,9 +9,9 @@ import {
     Typography,
     styled
 } from '@mui/material';
-import { SortState, SortDirection } from './TableTypes';
-import { AbstractTable } from '../AbstractTable.helper';
-import { AbstractColumn } from '../AbstractColumn.helper';
+import { SortState, SortDirection } from '../types/TableTypes';
+import { AbstractTable } from '../models/AbstractTable';
+import { AbstractColumn } from '../models/AbstractColumn';
 
 // Styled Components
 const StyledTableCell = styled(TableCell)(({ theme }) => ({

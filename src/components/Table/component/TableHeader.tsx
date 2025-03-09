@@ -14,7 +14,7 @@ import {
     Search as SearchIcon,
     Clear as ClearIcon
 } from '@mui/icons-material';
-import { AbstractTable } from '../AbstractTable.helper';
+import { AbstractTable } from '../models/AbstractTable';
 
 // Styled Components
 const HeaderStack = styled(Stack)(({ theme }) => ({

@@ -1,9 +1,9 @@
 import { useState, useCallback, useRef, useMemo } from 'react';
-import { SortDirection, SortState, FilterState } from './TableTypes';
-import { AbstractTable } from '../AbstractTable.helper';
-import { AbstractColumn } from '../AbstractColumn.helper';
+import { SortDirection, SortState, FilterState } from '../types/TableTypes';
+import { AbstractTable } from '../models/AbstractTable';
+import { AbstractColumn } from '../models/AbstractColumn';
 import { useTablePagination } from './UseTablePagination';
-import { FilterCriteria } from '../TableFilter';
+import { FilterCriteria } from '../models/TableFilter';
 
 export function useTableState<T>(table: AbstractTable<T>) {
     // Data state

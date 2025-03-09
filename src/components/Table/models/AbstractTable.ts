@@ -1,5 +1,5 @@
-import { AbstractColumn } from "./AbstractColumn.helper";
-import { FileType } from "./FileType";
+import { AbstractColumn } from "./AbstractColumn";
+import { FileType } from "../types/FileType";
 import { FilterCriteria, TableFilter } from "./TableFilter";
 
 export type CollumnsCollection<T> = {

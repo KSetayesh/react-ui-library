@@ -12,9 +12,10 @@ import {
     styled
 } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
-import { AbstractTable } from '../AbstractTable.helper';
-import { AbstractColumn } from '../AbstractColumn.helper';
-import { FilterCriteria, FilterOperator } from '../TableFilter';
+import { AbstractTable } from '../models/AbstractTable';
+import { AbstractColumn } from '../models/AbstractColumn';
+import { FilterCriteria } from '../models/TableFilter';
+import { FilterOperator } from '../types/FilterOperator';
 
 // Styled Components
 const StyledMenu = styled(Menu)(() => ({

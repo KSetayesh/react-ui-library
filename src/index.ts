@@ -8,5 +8,4 @@ export * from './components/ToolTip/ToolTip';
 export * from './components/ConfirmationDialog/ConfirmationDialog';
 export * from './components/SelectField/SelectField';
 export * from './components/TextField/TextField';
-export * from './components/Table/AbstractTable.helper';
-export * from './components/Table/AbstractColumn.helper';
+export * from './components/Table'; // Adding the new table component export

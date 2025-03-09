@@ -10,16 +10,16 @@ import {
 
 // Component imports
 import TableHeader from './TableHeader';
-import TableFilters from './TableFilters';
+import TableFilters from './FilterChips';
 import TableHead from './TableHead';
 import TableBody from './TableBody';
 import TablePagination from './TablePagination';
 import FilterMenu from './FilterMenu';
 
 // Hooks and Types
-import { TableComponentProps } from './TableTypes';
-import { useTableState } from './UseTableState';
-import { FilterCriteria } from '../TableFilter';
+import { TableComponentProps } from '../types/TableTypes';
+import { useTableState } from '../hooks/UseTableState';
+import { FilterCriteria } from '../models/TableFilter';
 import DeleteConfirmDialog from './DeleteConfirmationDialog';
 
 // Styled Components
