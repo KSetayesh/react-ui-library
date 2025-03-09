@@ -3,10 +3,10 @@ import { fn } from '@storybook/test';
 import React from 'react';
 
 import { TableComponent } from './TableComponent';
-import { AbstractTable, ExportOptions } from './AbstractTable.helper';
-import { AbstractColumn } from './AbstractColumn.helper';
-import { InputType } from './InputType';
-import { FileType } from './FileType';
+import { AbstractTable, ExportOptions } from '../AbstractTable.helper';
+import { AbstractColumn } from '../AbstractColumn.helper';
+import { InputType } from '../InputType';
+import { FileType } from '../FileType';
 
 // Example data type
 type User = {
