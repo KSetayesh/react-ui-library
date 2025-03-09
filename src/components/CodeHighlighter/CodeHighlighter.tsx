@@ -1,4 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import {
+    Box,
+    Button,
+    Typography,
+    styled
+} from '@mui/material';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism-tomorrow.css';
 import 'prismjs/components/prism-typescript';
@@ -16,6 +22,53 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.js';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import 'prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.js';
 import 'prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js';
+
+// Styled components
+const CodeContainer = styled(Box)(({ theme }) => ({
+    position: 'relative',
+    width: '100%',
+    maxWidth: '800px',
+}));
+
+const CopyButton = styled(Button)(({ theme }) => ({
+    position: 'absolute',
+    top: theme.spacing(1),
+    right: theme.spacing(1),
+    zIndex: 10,
+    backgroundColor: 'rgba(30, 30, 30, 0.8)',
+    color: 'white',
+    '&:hover': {
+        backgroundColor: 'rgba(50, 50, 50, 0.8)',
+    },
+}));
+
+const CodeTextarea = styled('textarea')(({ theme }) => ({
+    width: '100%',
+    maxWidth: '100%',
+    padding: theme.spacing(2),
+    margin: 0,
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: '#282c34',
+    color: '#abb2bf',
+    fontFamily: 'monospace',
+    fontSize: '14px',
+    lineHeight: 1.5,
+    border: 'none',
+    resize: 'vertical',
+    outline: 'none',
+    overflowY: 'auto',
+}));
+
+const CodePre = styled('pre')(({ theme }) => ({
+    width: '100%',
+    maxWidth: '100%',
+    height: 'auto',
+    overflow: 'auto',
+    margin: 0,
+    borderRadius: theme.shape.borderRadius,
+    padding: theme.spacing(2),
+    backgroundColor: '#282c34',
+}));
 
 enum PrismLang {
     JavaScript = 'javascript',
@@ -107,80 +160,43 @@ const CodeHighlighter: React.FC<CodeHighlighterProps> = ({
     };
 
     return (
-        <div
+        <CodeContainer
             className={`code-highlighter-container ${className}`}
-            style={{
-                position: 'relative',
-                width: '100%',
-                maxWidth: maxWidth
-            }}
+            sx={{ maxWidth }}
         >
             {showCopyButton && (
-                <button
+                <CopyButton
                     onClick={copyToClipboard}
                     className="copy-button"
-                    style={{
-                        position: 'absolute',
-                        top: '8px',
-                        right: '8px',
-                        background: 'rgba(30, 30, 30, 0.8)',
-                        border: 'none',
-                        borderRadius: '4px',
-                        padding: '4px 8px',
-                        color: 'white',
-                        fontSize: '12px',
-                        cursor: 'pointer',
-                        zIndex: 10,
-                    }}
+                    size="small"
                 >
                     {copied ? 'Copied!' : 'Copy'}
-                </button>
+                </CopyButton>
             )}
 
             {editable ? (
-                <textarea
+                <CodeTextarea
                     value={internalCode}
                     onChange={handleCodeChange}
                     className={`editable-code ${className}`}
-                    style={{
-                        width: '100%',
-                        maxWidth: '100%',
-                        height: maxHeight,
-                        padding: '16px',
-                        margin: 0,
-                        borderRadius: '6px',
-                        backgroundColor: '#282c34',
-                        color: '#abb2bf',
-                        fontFamily: 'monospace',
-                        fontSize: '14px',
-                        lineHeight: '1.5',
-                        border: 'none',
-                        resize: 'vertical',
-                        outline: 'none',
-                        overflowY: 'auto',
+                    sx={{
+                        maxHeight,
+                        height: maxHeight
                     }}
                 />
             ) : (
-                <pre
+                <CodePre
                     className={showLineNumbers ? 'line-numbers' : ''}
-                    style={{
-                        width: '100%',
-                        maxWidth: '100%',
-                        height: 'auto',
+                    sx={{
                         maxHeight,
-                        overflow: 'auto',
-                        margin: 0,
-                        borderRadius: '6px',
-                        padding: '16px',
-                        backgroundColor: '#282c34',
                     }}
                 >
                     <code className={`language-${normalizeLanguage(language)}`}>
                         {internalCode}
                     </code>
-                </pre>
+                </CodePre>
             )}
-        </div>
+        </CodeContainer>
     );
 };
 

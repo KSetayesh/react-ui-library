@@ -9,19 +9,59 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-// Custom styled tooltip
-const CustomTooltip = styled(({ className, ...props }: TooltipProps) => (
-    <Tooltip {...props} classes={{ popper: className }} />
-))(({ theme }) => ({
-    [`& .MuiTooltip-tooltip`]: {
-        backgroundColor: '#2C2C2C', // Slightly lighter dark background
+// Styling Configurations
+const tooltipStyles = {
+    tooltip: {
+        backgroundColor: '#2C2C2C',
         color: '#FFFFFF',
         maxWidth: 320,
-        padding: theme.spacing(2),
         borderRadius: '8px',
         boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
         fontSize: '14px',
     },
+    titleBox: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 2,
+        alignItems: 'stretch'
+    },
+    titleContent: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 1
+    },
+    titleText: {
+        color: 'white',
+        fontWeight: 'bold'
+    },
+    descriptionText: {
+        color: 'rgba(255,255,255,0.7)',
+        lineHeight: 1.4
+    },
+    actionBox: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    learnMoreLink: {
+        color: '#4285F4',
+        textDecoration: 'none',
+        '&:hover': {
+            textDecoration: 'underline'
+        }
+    },
+    actionButton: {
+        textTransform: 'none',
+        borderRadius: '4px',
+        padding: '6px 12px'
+    }
+};
+
+// Custom styled tooltip
+const CustomTooltip = styled(({ className, ...props }: TooltipProps) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+    [`& .MuiTooltip-tooltip`]: tooltipStyles.tooltip,
 }));
 
 interface ToolTipButton {
@@ -48,47 +88,25 @@ const ModernTooltip: React.FC<EnhancedTooltipProps> = ({
     return (
         <CustomTooltip
             title={
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 2,
-                        alignItems: 'stretch'
-                    }}
-                >
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                        <Typography variant="body1" sx={{ color: 'white', fontWeight: 'bold' }}>
+                <Box sx={tooltipStyles.titleBox}>
+                    <Box sx={tooltipStyles.titleContent}>
+                        <Typography variant="body1" sx={tooltipStyles.titleText}>
                             {title}
                         </Typography>
                         {description && (
                             <Typography
                                 variant="body2"
-                                sx={{
-                                    color: 'rgba(255,255,255,0.7)',
-                                    lineHeight: 1.4
-                                }}
+                                sx={tooltipStyles.descriptionText}
                             >
                                 {description}
                             </Typography>
                         )}
                     </Box>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center'
-                        }}
-                    >
+                    <Box sx={tooltipStyles.actionBox}>
                         <Link
                             component="button"
                             onClick={onLearnMore}
-                            sx={{
-                                color: '#4285F4',
-                                textDecoration: 'none',
-                                '&:hover': {
-                                    textDecoration: 'underline'
-                                }
-                            }}
+                            sx={tooltipStyles.learnMoreLink}
                         >
                             Learn more
                         </Link>
@@ -98,11 +116,7 @@ const ModernTooltip: React.FC<EnhancedTooltipProps> = ({
                                 color="primary"
                                 size="small"
                                 onClick={button.onButtonClick}
-                                sx={{
-                                    textTransform: 'none',
-                                    borderRadius: '4px',
-                                    padding: '6px 12px'
-                                }}
+                                sx={tooltipStyles.actionButton}
                             >
                                 {button.buttonText || 'Button'}
                             </Button>
