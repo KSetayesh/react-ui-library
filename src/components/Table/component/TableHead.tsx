@@ -61,7 +61,7 @@ function TableHead<T>({
                             indeterminate={numSelected > 0 && numSelected < rowsInPage}
                             checked={isAllSelected}
                             onChange={onSelectAllClick}
-                            inputProps={{ 'aria-label': 'select all' }}
+                            aria-label="select all"
                         />
                     </StyledSelectTableCell>
                 )}

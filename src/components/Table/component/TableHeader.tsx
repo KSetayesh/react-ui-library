@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import {
     Typography,
-    TextField,
     Button,
     Stack,
     InputAdornment,
     IconButton,
-    styled
+    styled,
+    OutlinedInput,
+    FormControl
 } from '@mui/material';
 import {
     FilterList as FilterListIcon,
@@ -30,8 +31,14 @@ const ActionStack = styled(Stack)(({ theme }) => ({
     gap: theme.spacing(1)
 }));
 
-const SearchTextField = styled(TextField)(() => ({
-    width: 200
+const SearchOutlinedInput = styled(OutlinedInput)(({ theme }) => ({
+    width: 200,
+    '& .MuiOutlinedInput-input': {
+        padding: theme.spacing(1)
+    },
+    '& .MuiInputAdornment-root': {
+        margin: 0
+    }
 }));
 
 type TableHeaderProps = {
@@ -68,30 +75,31 @@ const TableHeader: React.FC<TableHeaderProps> = ({
 
             <ActionStack>
                 {table.isSearchable && (
-                    <SearchTextField
-                        placeholder="Search..."
-                        size="small"
-                        value={localSearchQuery}
-                        onChange={handleSearchChange}
-                        InputProps={{
-                            startAdornment: (
+                    <FormControl variant="outlined" size="small">
+                        <SearchOutlinedInput
+                            placeholder="Search..."
+                            value={localSearchQuery}
+                            onChange={handleSearchChange}
+                            startAdornment={
                                 <InputAdornment position="start">
                                     <SearchIcon fontSize="small" />
                                 </InputAdornment>
-                            ),
-                            endAdornment: localSearchQuery && (
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        size="small"
-                                        onClick={handleClearSearch}
-                                        edge="end"
-                                    >
-                                        <ClearIcon fontSize="small" />
-                                    </IconButton>
-                                </InputAdornment>
-                            )
-                        }}
-                    />
+                            }
+                            endAdornment={
+                                localSearchQuery ? (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            size="small"
+                                            onClick={handleClearSearch}
+                                            edge="end"
+                                        >
+                                            <ClearIcon fontSize="small" />
+                                        </IconButton>
+                                    </InputAdornment>
+                                ) : null
+                            }
+                        />
+                    </FormControl>
                 )}
 
                 {table.isFilterable && (
