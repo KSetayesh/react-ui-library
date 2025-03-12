@@ -5,8 +5,8 @@ import React from 'react';
 import { TableComponent } from '../component/TableComponent';
 import { BasicTable, BasicTableI, ExportOptions } from '../models/BasicTable';
 import { BasicColumn, BasicColumnI } from '../models/BasicColumn';
-import { InputType } from '../types/InputType';
-import { FileType } from '../types/FileType';
+import { InputType } from '../../../types/InputType';
+import { FileType } from '../../../types/FileType';
 
 // Example data type
 type User = {

@@ -1,5 +1,5 @@
 import { BasicColumn } from "./BasicColumn";
-import { FileType } from "../types/FileType";
+import { FileType } from "../../../types/FileType";
 import { FilterCriteria, TableFilter } from "./TableFilter";
 
 export type CollumnsCollection<T> = {

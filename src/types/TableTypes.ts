@@ -1,6 +1,6 @@
-import { BasicColumn } from "../models/BasicColumn";
-import { BasicTable } from "../models/BasicTable";
-import { FilterCriteria } from "../models/TableFilter";
+import { BasicColumn } from "../components/Table/models/BasicColumn";
+import { BasicTable } from "../components/Table/models/BasicTable";
+import { FilterCriteria } from "../components/Table/models/TableFilter";
 
 // Enum for sort direction
 export enum SortDirection {

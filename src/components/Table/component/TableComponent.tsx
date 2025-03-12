@@ -17,7 +17,7 @@ import TablePagination from './TablePagination';
 import FilterMenu from './FilterMenu';
 
 // Hooks and Types
-import { TableComponentProps } from '../types/TableTypes';
+import { TableComponentProps } from '../../../types/TableTypes';
 import { useTableState } from '../hooks/UseTableState';
 import { FilterCriteria } from '../models/TableFilter';
 import DeleteConfirmDialog from './DeleteConfirmationDialog';

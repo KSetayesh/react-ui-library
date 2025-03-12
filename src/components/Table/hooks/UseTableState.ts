@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useMemo } from 'react';
-import { SortDirection, SortState, FilterState } from '../types/TableTypes';
+import { SortDirection, SortState, FilterState } from '../../../types/TableTypes';
 import { BasicTable } from '../models/BasicTable';
 import { BasicColumn } from '../models/BasicColumn';
 import { useTablePagination } from './UseTablePagination';

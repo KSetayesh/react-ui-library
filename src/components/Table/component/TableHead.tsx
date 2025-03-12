@@ -9,7 +9,7 @@ import {
     Typography,
     styled
 } from '@mui/material';
-import { SortState, SortDirection } from '../types/TableTypes';
+import { SortState, SortDirection } from '../../../types/TableTypes';
 import { BasicTable } from '../models/BasicTable';
 import { BasicColumn } from '../models/BasicColumn';
 

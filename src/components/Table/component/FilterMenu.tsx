@@ -15,7 +15,7 @@ import { Add as AddIcon } from '@mui/icons-material';
 import { BasicTable } from '../models/BasicTable';
 import { BasicColumn } from '../models/BasicColumn';
 import { FilterCriteria } from '../models/TableFilter';
-import { FilterOperator } from '../types/FilterOperator';
+import { FilterOperator } from '../../../types/FilterOperator';
 
 // Styled Components
 const StyledMenu = styled(Menu)(() => ({

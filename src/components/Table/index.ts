@@ -2,10 +2,10 @@
 export { default as TableComponent } from './component/TableComponent';
 
 // Export types
-export * from './types/TableTypes';
-export * from './types/InputType';
-export * from './types/FileType';
-export * from './types/FilterOperator';
+// export * from '../../types/TableTypes';
+// export * from '../../types/InputType';
+// export * from '../../types/FileType';
+// export * from '../../types/FilterOperator';
 
 // Export models
 export { BasicTable, BasicTableI } from './models/BasicTable';

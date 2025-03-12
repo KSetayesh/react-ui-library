@@ -1,4 +1,4 @@
-import { FilterOperator } from "../types/FilterOperator";
+import { FilterOperator } from "../../../types/FilterOperator";
 import { BasicColumn } from "./BasicColumn";
 
 // Define value types for different operators

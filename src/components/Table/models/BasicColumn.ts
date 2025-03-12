@@ -1,4 +1,4 @@
-import { InputType } from "../types/InputType";
+import { InputType } from "../../../types/InputType";
 
 export interface BasicColumnI<T> {
     key: string;

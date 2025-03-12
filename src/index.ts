@@ -1,3 +1,4 @@
+export * from './types';
 export * from './components/Button/Button';
 export * from './components/RadioButton/RadioButton';
 export * from './components/CodeHighlighter/CodeHighlighter';
@@ -8,4 +9,5 @@ export * from './components/ToolTip/ToolTip';
 export * from './components/ConfirmationDialog/ConfirmationDialog';
 export * from './components/SelectField/SelectField';
 export * from './components/TextField/TextField';
-export * from './components/Table'; // Adding the new table component export
+export * from './components/Form/StandardForm';
+export * from './components/Table';
