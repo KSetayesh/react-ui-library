@@ -1,10 +1,10 @@
-import { AbstractColumn } from "./AbstractColumn";
+import { BasicColumn } from "./BasicColumn";
 import { FileType } from "../types/FileType";
 import { FilterCriteria, TableFilter } from "./TableFilter";
 
 export type CollumnsCollection<T> = {
-    columns: AbstractColumn<T>[];
-    columnsAsMap: Map<string, AbstractColumn<T>>;
+    columns: BasicColumn<T>[];
+    columnsAsMap: Map<string, BasicColumn<T>>;
 };
 
 export type ExportFormat = FileType.CSV | FileType.XLSX | FileType.PDF;
@@ -17,7 +17,7 @@ export type ExportOptions = {
     formats?: ExportFormat[];
 };
 
-export abstract class AbstractTable<T> {
+export class BasicTable<T> {
     protected _data: T[];
     protected _originalData: T[];
     protected _columnsCollection: CollumnsCollection<T>;
@@ -37,7 +37,7 @@ export abstract class AbstractTable<T> {
 
     constructor(
         data: T[],
-        columns: AbstractColumn<T>[],
+        columns: BasicColumn<T>[],
         title: string,
         description: string,
         isSortable: boolean,
@@ -66,8 +66,8 @@ export abstract class AbstractTable<T> {
         this._exportOptions = exportOptions;
     }
 
-    private setColumnData(columns: AbstractColumn<T>[]): CollumnsCollection<T> {
-        const columnsMap = new Map<string, AbstractColumn<T>>();
+    private setColumnData(columns: BasicColumn<T>[]): CollumnsCollection<T> {
+        const columnsMap = new Map<string, BasicColumn<T>>();
         columns.forEach((column) => {
             columnsMap.set(column.key, column);
         });
@@ -108,7 +108,7 @@ export abstract class AbstractTable<T> {
         });
     }
 
-    searchData(query: string, columns?: AbstractColumn<T>[]): T[] {
+    searchData(query: string, columns?: BasicColumn<T>[]): T[] {
         if (!query.trim()) {
             return [...this._data];
         }

@@ -15,7 +15,7 @@ import {
     Search as SearchIcon,
     Clear as ClearIcon
 } from '@mui/icons-material';
-import { AbstractTable } from '../models/AbstractTable';
+import { BasicTable } from '../models/BasicTable';
 
 // Styled Components
 const HeaderStack = styled(Stack)(({ theme }) => ({
@@ -42,7 +42,7 @@ const SearchOutlinedInput = styled(OutlinedInput)(({ theme }) => ({
 }));
 
 type TableHeaderProps = {
-    table: AbstractTable<any>;
+    table: BasicTable<any>;
     searchQuery: string;
     onSearch: (query: string) => void;
     onFilterClick: (event: React.MouseEvent<HTMLButtonElement>) => void;

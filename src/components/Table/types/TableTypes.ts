@@ -1,5 +1,5 @@
-import { AbstractColumn } from "../models/AbstractColumn";
-import { AbstractTable } from "../models/AbstractTable";
+import { BasicColumn } from "../models/BasicColumn";
+import { BasicTable } from "../models/BasicTable";
 import { FilterCriteria } from "../models/TableFilter";
 
 // Enum for sort direction
@@ -22,7 +22,7 @@ export type FilterState<T> = {
 
 // Table component props
 export type TableComponentProps<T> = {
-    table: AbstractTable<T>;
+    table: BasicTable<T>;
     onRowClick?: (row: T) => void;
     onSelectionChange?: (selectedRows: T[]) => void;
     elevation?: number;
@@ -34,8 +34,8 @@ export type ExportFormat = 'csv' | 'json' | 'xlsx';
 
 // Filter menu props
 export type FilterMenuProps<T> = {
-    table: AbstractTable<T>;
+    table: BasicTable<T>;
     filterState: FilterState<T>;
     onApplyFilters: (filters: FilterCriteria<T>[]) => void;
-    columns: AbstractColumn<T>[];
+    columns: BasicColumn<T>[];
 };

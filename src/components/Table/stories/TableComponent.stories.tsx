@@ -3,8 +3,8 @@ import { fn } from '@storybook/test';
 import React from 'react';
 
 import { TableComponent } from '../component/TableComponent';
-import { AbstractTable, ExportOptions } from '../models/AbstractTable';
-import { AbstractColumn } from '../models/AbstractColumn';
+import { BasicTable, ExportOptions } from '../models/BasicTable';
+import { BasicColumn } from '../models/BasicColumn';
 import { InputType } from '../types/InputType';
 import { FileType } from '../types/FileType';
 
@@ -21,7 +21,7 @@ type User = {
 };
 
 // Example Column implementation for storybook
-class UserColumn<T> extends AbstractColumn<T> {
+class UserColumn<T> extends BasicColumn<T> {
     constructor(
         key: string,
         title: string,
@@ -54,7 +54,7 @@ class UserColumn<T> extends AbstractColumn<T> {
 }
 
 // Example Table implementation for storybook
-class UserTable extends AbstractTable<User> {
+class UserTable extends BasicTable<User> {
     constructor(
         data: User[],
         isSortable: boolean = true,

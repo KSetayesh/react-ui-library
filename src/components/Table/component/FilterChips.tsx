@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { Clear as ClearIcon } from '@mui/icons-material';
 import { FilterCriteria } from '../models/TableFilter';
-import { AbstractTable } from '../models/AbstractTable';
+import { BasicTable } from '../models/BasicTable';
 
 // Styled Components
 const FilterContainer = styled(Box)(({ theme }) => ({
@@ -26,7 +26,7 @@ const FilterTitleTypography = styled(Typography)(({ theme }) => ({
 
 type TableFiltersProps<T> = {
     filters: FilterCriteria<T>[];
-    table: AbstractTable<T>;
+    table: BasicTable<T>;
     onRemoveFilter: (index: number) => void;
     onClearAll: () => void;
 };

@@ -1,5 +1,5 @@
 import { FilterOperator } from "../types/FilterOperator";
-import { AbstractColumn } from "./AbstractColumn";
+import { BasicColumn } from "./BasicColumn";
 
 // Define value types for different operators
 export type EqualsValue = string | number | boolean | Date | null;
@@ -49,7 +49,7 @@ export type FilterCriteria<T> =
 
 // Processed filter with resolved column
 export type ProcessedFilter<T> = FilterCriteria<T> & {
-    column: AbstractColumn<T>;
+    column: BasicColumn<T>;
 };
 
 /**
@@ -67,7 +67,7 @@ export class TableFilter {
     static filter<T>(
         data: T[],
         filters: FilterCriteria<T>[],
-        columnsMap: Map<string, AbstractColumn<T>>
+        columnsMap: Map<string, BasicColumn<T>>
     ): T[] {
         if (!filters || filters.length === 0) {
             return [...data];

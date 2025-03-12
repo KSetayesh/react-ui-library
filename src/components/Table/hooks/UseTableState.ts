@@ -1,16 +1,16 @@
 import { useState, useCallback, useRef, useMemo } from 'react';
 import { SortDirection, SortState, FilterState } from '../types/TableTypes';
-import { AbstractTable } from '../models/AbstractTable';
-import { AbstractColumn } from '../models/AbstractColumn';
+import { BasicTable } from '../models/BasicTable';
+import { BasicColumn } from '../models/BasicColumn';
 import { useTablePagination } from './UseTablePagination';
 import { FilterCriteria } from '../models/TableFilter';
 
-export function useTableState<T>(table: AbstractTable<T>) {
+export function useTableState<T>(table: BasicTable<T>) {
     // Data state
     const [data, setData] = useState<T[]>(table.data);
 
     // Columns state (only show visible columns)
-    const [columns, setColumns] = useState<AbstractColumn<T>[]>(
+    const [columns, setColumns] = useState<BasicColumn<T>[]>(
         table.columnsCollection.columns.filter(col => col.showColumn)
     );
 

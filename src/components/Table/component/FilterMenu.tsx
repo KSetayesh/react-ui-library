@@ -12,8 +12,8 @@ import {
     styled
 } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
-import { AbstractTable } from '../models/AbstractTable';
-import { AbstractColumn } from '../models/AbstractColumn';
+import { BasicTable } from '../models/BasicTable';
+import { BasicColumn } from '../models/BasicColumn';
 import { FilterCriteria } from '../models/TableFilter';
 import { FilterOperator } from '../types/FilterOperator';
 
@@ -36,8 +36,8 @@ type FilterMenuProps<T> = {
     open: boolean;
     anchorEl: HTMLElement | null;
     onClose: () => void;
-    table: AbstractTable<T>;
-    columns: AbstractColumn<T>[];
+    table: BasicTable<T>;
+    columns: BasicColumn<T>[];
     onApplyFilters: (filters: FilterCriteria<T>[]) => void;
 };
 

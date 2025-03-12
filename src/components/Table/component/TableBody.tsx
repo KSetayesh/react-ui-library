@@ -15,8 +15,8 @@ import {
     Edit as EditIcon,
     Delete as DeleteIcon
 } from '@mui/icons-material';
-import { AbstractTable } from '../models/AbstractTable';
-import { AbstractColumn } from '../models/AbstractColumn';
+import { BasicTable } from '../models/BasicTable';
+import { BasicColumn } from '../models/BasicColumn';
 
 // Styled Components
 const StyledTableBodyCell = styled(TableCell)(({ theme }) => ({
@@ -38,9 +38,9 @@ const ActionsCell = styled(TableCell)(({ theme }) => ({
 }));
 
 type TableBodyProps<T> = {
-    table: AbstractTable<T>;
+    table: BasicTable<T>;
     data: T[];
-    columns: AbstractColumn<T>[];
+    columns: BasicColumn<T>[];
     page: number;
     rowsPerPage: number;
     selectedRows: Set<number>;

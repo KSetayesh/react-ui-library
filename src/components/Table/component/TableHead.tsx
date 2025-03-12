@@ -10,8 +10,8 @@ import {
     styled
 } from '@mui/material';
 import { SortState, SortDirection } from '../types/TableTypes';
-import { AbstractTable } from '../models/AbstractTable';
-import { AbstractColumn } from '../models/AbstractColumn';
+import { BasicTable } from '../models/BasicTable';
+import { BasicColumn } from '../models/BasicColumn';
 
 // Styled Components
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -30,8 +30,8 @@ const StyledSelectTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 type TableHeadProps<T> = {
-    table: AbstractTable<T>;
-    columns: AbstractColumn<T>[];
+    table: BasicTable<T>;
+    columns: BasicColumn<T>[];
     sortState: SortState;
     onSort: (columnKey: string) => void;
     selectedRows: Set<number>;

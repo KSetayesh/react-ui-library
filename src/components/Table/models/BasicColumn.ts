@@ -1,7 +1,7 @@
 import { InputType } from "../types/InputType";
 
 
-export abstract class AbstractColumn<T> {
+export class BasicColumn<T> {
 
     protected _key: string;
     protected _title: string;
@@ -16,7 +16,8 @@ export abstract class AbstractColumn<T> {
     protected _detailedDescription: string;
     protected _routeTo?: string;
 
-    constructor(key: string,
+    constructor(
+        key: string,
         title: string,
         accessor: keyof T,
         inputType: InputType,
@@ -27,7 +28,8 @@ export abstract class AbstractColumn<T> {
         isEditable: boolean,
         isSortable: boolean,
         detailedDescription: string,
-        routeTo?: string) {
+        routeTo?: string
+    ) {
 
         this._key = key;
         this._title = title;
