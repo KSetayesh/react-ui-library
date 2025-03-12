@@ -17,6 +17,22 @@ export type ExportOptions = {
     formats?: ExportFormat[];
 };
 
+export interface BasicTableI<T> {
+    data: T[];
+    columns: BasicColumn<T>[];
+    title: string;
+    description: string;
+    isSortable: boolean;
+    isFilterable: boolean;
+    isEditable: boolean;
+    isDeletable: boolean;
+    isPageable: boolean;
+    isSelectable: boolean;
+    isMultiSelectable: boolean;
+    isSearchable: boolean;
+    exportOptions?: ExportOptions;
+};
+
 export class BasicTable<T> {
     protected _data: T[];
     protected _originalData: T[];
@@ -32,38 +48,22 @@ export class BasicTable<T> {
     protected _isMultiSelectable: boolean;
     protected _isSearchable: boolean;
     protected _exportOptions?: ExportOptions;
-    // private isExpandable: boolean;
-    // private isCollapsible: boolean;
 
-    constructor(
-        data: T[],
-        columns: BasicColumn<T>[],
-        title: string,
-        description: string,
-        isSortable: boolean,
-        isFilterable: boolean,
-        isEditable: boolean,
-        isDeletable: boolean,
-        isPageable: boolean,
-        isSelectable: boolean,
-        isMultiSelectable: boolean,
-        isSearchable: boolean,
-        exportOptions?: ExportOptions,
-    ) {
-        this._data = [...data]; // Create a copy
-        this._originalData = [...data];
-        this._columnsCollection = this.setColumnData(columns);
-        this._title = title;
-        this._description = description;
-        this._isSortable = isSortable;
-        this._isFilterable = isFilterable;
-        this._isEditable = isEditable;
-        this._isDeletable = isDeletable;
-        this._isPageable = isPageable;
-        this._isSelectable = isSelectable;
-        this._isMultiSelectable = isMultiSelectable;
-        this._isSearchable = isSearchable;
-        this._exportOptions = exportOptions;
+    constructor(config: BasicTableI<T>) {
+        this._data = [...config.data]; // Create a copy
+        this._originalData = [...config.data];
+        this._columnsCollection = this.setColumnData(config.columns);
+        this._title = config.title;
+        this._description = config.description || '';
+        this._isSortable = config.isSortable ?? true;
+        this._isFilterable = config.isFilterable ?? true;
+        this._isEditable = config.isEditable ?? false;
+        this._isDeletable = config.isDeletable ?? false;
+        this._isPageable = config.isPageable ?? true;
+        this._isSelectable = config.isSelectable ?? false;
+        this._isMultiSelectable = config.isMultiSelectable ?? false;
+        this._isSearchable = config.isSearchable ?? true;
+        this._exportOptions = config.exportOptions;
     }
 
     private setColumnData(columns: BasicColumn<T>[]): CollumnsCollection<T> {

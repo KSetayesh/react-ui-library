@@ -3,8 +3,8 @@ import { fn } from '@storybook/test';
 import React from 'react';
 
 import { TableComponent } from '../component/TableComponent';
-import { BasicTable, ExportOptions } from '../models/BasicTable';
-import { BasicColumn } from '../models/BasicColumn';
+import { BasicTable, BasicTableI, ExportOptions } from '../models/BasicTable';
+import { BasicColumn, BasicColumnI } from '../models/BasicColumn';
 import { InputType } from '../types/InputType';
 import { FileType } from '../types/FileType';
 
@@ -20,36 +20,10 @@ type User = {
     createdAt: Date;
 };
 
-// Example Column implementation for storybook
+// Example Column implementation for storybook - providing all required properties
 class UserColumn<T> extends BasicColumn<T> {
-    constructor(
-        key: string,
-        title: string,
-        accessor: keyof T,
-        inputType: InputType,
-        isUrl: boolean = false,
-        isDollarAmount: boolean = false,
-        addSuffix: string = '',
-        showColumn: boolean = true,
-        isEditable: boolean = false,
-        isSortable: boolean = true,
-        detailedDescription: string = '',
-        routeTo?: string
-    ) {
-        super(
-            key,
-            title,
-            accessor,
-            inputType,
-            isUrl,
-            isDollarAmount,
-            addSuffix,
-            showColumn,
-            isEditable,
-            isSortable,
-            detailedDescription,
-            routeTo
-        );
+    constructor(config: BasicColumnI<T>) {
+        super(config);
     }
 }
 
@@ -57,122 +31,137 @@ class UserColumn<T> extends BasicColumn<T> {
 class UserTable extends BasicTable<User> {
     constructor(
         data: User[],
-        isSortable: boolean = true,
-        isFilterable: boolean = true,
-        isEditable: boolean = true,
-        isDeletable: boolean = true,
-        isPageable: boolean = true,
-        isSelectable: boolean = true,
-        isMultiSelectable: boolean = true,
-        isSearchable: boolean = true,
-        showExportOptions: boolean = true
+        options: {
+            isSortable?: boolean;
+            isFilterable?: boolean;
+            isEditable?: boolean;
+            isDeletable?: boolean;
+            isPageable?: boolean;
+            isSelectable?: boolean;
+            isMultiSelectable?: boolean;
+            isSearchable?: boolean;
+            showExportOptions?: boolean;
+        } = {}
     ) {
+        const {
+            isSortable = true,
+            isFilterable = true,
+            isEditable = true,
+            isDeletable = true,
+            isPageable = true,
+            isSelectable = true,
+            isMultiSelectable = true,
+            isSearchable = true,
+            showExportOptions = true
+        } = options;
+
+        // Define columns with all required properties
         const columns: UserColumn<User>[] = [
-            new UserColumn(
-                'id',
-                'ID',
-                'id',
-                InputType.NUMBER,
-                false,
-                false,
-                '',
-                true,
-                false,
-                true,
-                'Unique identifier for the user'
-            ),
-            new UserColumn(
-                'name',
-                'Name',
-                'name',
-                InputType.TEXT,
-                false,
-                false,
-                '',
-                true,
-                true,
-                true,
-                'User\'s full name',
-                '/user/profile'
-            ),
-            new UserColumn(
-                'email',
-                'Email',
-                'email',
-                InputType.EMAIL,
-                true,
-                false,
-                '',
-                true,
-                true,
-                true,
-                'User\'s email address'
-            ),
-            new UserColumn(
-                'role',
-                'Role',
-                'role',
-                InputType.TEXT,
-                false,
-                false,
-                '',
-                true,
-                true,
-                true,
-                'User\'s role in the system'
-            ),
-            new UserColumn(
-                'status',
-                'Status',
-                'status',
-                InputType.TEXT,
-                false,
-                false,
-                '',
-                true,
-                false,
-                true,
-                'Current user status'
-            ),
-            new UserColumn(
-                'salary',
-                'Salary',
-                'salary',
-                InputType.NUMBER,
-                false,
-                true,
-                '',
-                true,
-                true,
-                true,
-                'User\'s annual salary'
-            ),
-            new UserColumn(
-                'lastLogin',
-                'Last Login',
-                'lastLogin',
-                InputType.DATE,
-                false,
-                false,
-                '',
-                true,
-                false,
-                true,
-                'Date and time of last login'
-            ),
-            new UserColumn(
-                'createdAt',
-                'Created At',
-                'createdAt',
-                InputType.DATE,
-                false,
-                false,
-                '',
-                true,
-                false,
-                true,
-                'Date and time when the user was created'
-            )
+            new UserColumn({
+                key: 'id',
+                title: 'ID',
+                accessor: 'id',
+                inputType: InputType.NUMBER,
+                isUrl: false,
+                isDollarAmount: false,
+                addSuffix: '',
+                showColumn: true,
+                isEditable: false,
+                isSortable: true,
+                detailedDescription: 'Unique identifier for the user'
+            }),
+            new UserColumn({
+                key: 'name',
+                title: 'Name',
+                accessor: 'name',
+                inputType: InputType.TEXT,
+                isUrl: false,
+                isDollarAmount: false,
+                addSuffix: '',
+                showColumn: true,
+                isEditable: true,
+                isSortable: true,
+                detailedDescription: 'User\'s full name',
+                routeTo: '/user/profile'
+            }),
+            new UserColumn({
+                key: 'email',
+                title: 'Email',
+                accessor: 'email',
+                inputType: InputType.EMAIL,
+                isUrl: true,
+                isDollarAmount: false,
+                addSuffix: '',
+                showColumn: true,
+                isEditable: true,
+                isSortable: true,
+                detailedDescription: 'User\'s email address'
+            }),
+            new UserColumn({
+                key: 'role',
+                title: 'Role',
+                accessor: 'role',
+                inputType: InputType.TEXT,
+                isUrl: false,
+                isDollarAmount: false,
+                addSuffix: '',
+                showColumn: true,
+                isEditable: true,
+                isSortable: true,
+                detailedDescription: 'User\'s role in the system'
+            }),
+            new UserColumn({
+                key: 'status',
+                title: 'Status',
+                accessor: 'status',
+                inputType: InputType.TEXT,
+                isUrl: false,
+                isDollarAmount: false,
+                addSuffix: '',
+                showColumn: true,
+                isEditable: false,
+                isSortable: true,
+                detailedDescription: 'Current user status'
+            }),
+            new UserColumn({
+                key: 'salary',
+                title: 'Salary',
+                accessor: 'salary',
+                inputType: InputType.NUMBER,
+                isUrl: false,
+                isDollarAmount: true,
+                addSuffix: '',
+                showColumn: true,
+                isEditable: true,
+                isSortable: true,
+                detailedDescription: 'User\'s annual salary'
+            }),
+            new UserColumn({
+                key: 'lastLogin',
+                title: 'Last Login',
+                accessor: 'lastLogin',
+                inputType: InputType.DATE,
+                isUrl: false,
+                isDollarAmount: false,
+                addSuffix: '',
+                showColumn: true,
+                isEditable: false,
+                isSortable: true,
+                detailedDescription: 'Date and time of last login'
+            }),
+            new UserColumn({
+                key: 'createdAt',
+                title: 'Created At',
+                accessor: 'createdAt',
+                inputType: InputType.DATE,
+                isUrl: false,
+                isDollarAmount: false,
+                addSuffix: '',
+                showColumn: true,
+                isEditable: false,
+                isSortable: true,
+                detailedDescription: 'Date and time when the user was created'
+            })
         ];
 
         const exportOptions: ExportOptions | undefined = showExportOptions ? {
@@ -183,21 +172,23 @@ class UserTable extends BasicTable<User> {
             formats: [FileType.CSV, FileType.XLSX, FileType.PDF]
         } : undefined;
 
-        super(
-            data,
-            columns,
-            'User Management',
-            'View and manage system users',
-            isSortable,
-            isFilterable,
-            isEditable,
-            isDeletable,
-            isPageable,
-            isSelectable,
-            isMultiSelectable,
-            isSearchable,
-            exportOptions
-        );
+        const tableProps: BasicTableI<User> = {
+            data: data,
+            columns: columns,
+            title: 'User Management',
+            description: 'View and manage system users',
+            isSortable: isSortable,
+            isFilterable: isFilterable,
+            isEditable: isEditable,
+            isDeletable: isDeletable,
+            isPageable: isPageable,
+            isSelectable: isSelectable,
+            isMultiSelectable: isMultiSelectable,
+            isSearchable: isSearchable,
+            exportOptions: exportOptions,
+        };
+        // Use the new configuration object approach for BasicTable
+        super(tableProps);
     }
 }
 
@@ -340,18 +331,20 @@ const TableComponentWrapper = (args: any) => {
         ...otherArgs
     } = args;
 
-    // Create table instance with the specified features
+    // Create table instance with the specified features using the new options object
     const table = new UserTable(
         sampleUsers,
-        isSortable,
-        isFilterable,
-        isEditable,
-        isDeletable,
-        isPageable,
-        isSelectable,
-        isMultiSelectable,
-        isSearchable,
-        showExportOptions
+        {
+            isSortable,
+            isFilterable,
+            isEditable,
+            isDeletable,
+            isPageable,
+            isSelectable,
+            isMultiSelectable,
+            isSearchable,
+            showExportOptions
+        }
     );
 
     // Handler for row click

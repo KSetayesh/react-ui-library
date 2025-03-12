@@ -1,5 +1,19 @@
 import { InputType } from "../types/InputType";
 
+export interface BasicColumnI<T> {
+    key: string;
+    title: string;
+    accessor: keyof T;
+    inputType: InputType;
+    isUrl: boolean;
+    isDollarAmount: boolean;
+    addSuffix: string;
+    showColumn: boolean;
+    isEditable: boolean;
+    isSortable: boolean;
+    detailedDescription: string;
+    routeTo?: string;
+};
 
 export class BasicColumn<T> {
 
@@ -16,33 +30,19 @@ export class BasicColumn<T> {
     protected _detailedDescription: string;
     protected _routeTo?: string;
 
-    constructor(
-        key: string,
-        title: string,
-        accessor: keyof T,
-        inputType: InputType,
-        isUrl: boolean,
-        isDollarAmount: boolean,
-        addSuffix: string,
-        showColumn: boolean,
-        isEditable: boolean,
-        isSortable: boolean,
-        detailedDescription: string,
-        routeTo?: string
-    ) {
-
-        this._key = key;
-        this._title = title;
-        this._accessor = accessor;
-        this._inputType = inputType;
-        this._isUrl = isUrl;
-        this._isDollarAmount = isDollarAmount;
-        this._addSuffix = addSuffix;
-        this._showColumn = showColumn;
-        this._isEditable = isEditable;
-        this._isSortable = isSortable;
-        this._detailedDescription = detailedDescription;
-        this._routeTo = routeTo;
+    constructor(config: BasicColumnI<T>) {
+        this._key = config.key;
+        this._title = config.title;
+        this._accessor = config.accessor;
+        this._inputType = config.inputType;
+        this._isUrl = config.isUrl ?? false;
+        this._isDollarAmount = config.isDollarAmount ?? false;
+        this._addSuffix = config.addSuffix ?? '';
+        this._showColumn = config.showColumn ?? true;
+        this._isEditable = config.isEditable ?? false;
+        this._isSortable = config.isSortable ?? true;
+        this._detailedDescription = config.detailedDescription ?? '';
+        this._routeTo = config.routeTo;
     }
 
     get key(): string {

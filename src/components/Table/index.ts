@@ -8,8 +8,8 @@ export * from './types/FileType';
 export * from './types/FilterOperator';
 
 // Export models
-export { BasicTable } from './models/BasicTable';
-export { BasicColumn } from './models/BasicColumn';
+export { BasicTable, BasicTableI } from './models/BasicTable';
+export { BasicColumn, BasicColumnI } from './models/BasicColumn';
 export { TableFilter } from './models/TableFilter';
 
 // Export hooks
