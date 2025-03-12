@@ -16,13 +16,15 @@ export type RadioButtonComponentProps = {
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     options: Options;
     label: string;
+    disabled?: boolean;
+    required?: boolean;
 };
 
 const StyledFormControl = styled(FormControl)(({ theme }) => ({
     margin: theme.spacing(0.5),
 }));
 
-const RadioButtonComponent: React.FC<RadioButtonComponentProps> = ({ name, value, onChange, options, label }) => {
+const RadioButtonComponent: React.FC<RadioButtonComponentProps> = ({ name, value, onChange, options, label, disabled, required }) => {
     return (
         <StyledFormControl>
             <FormLabel component="legend">{label}</FormLabel>
@@ -33,6 +35,8 @@ const RadioButtonComponent: React.FC<RadioButtonComponentProps> = ({ name, value
                         value={option.value}
                         control={<Radio />}
                         label={option.label}
+                        disabled={disabled}
+                        required={required}
                     />
                 ))}
             </RadioGroup>
