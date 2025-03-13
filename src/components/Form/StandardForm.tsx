@@ -1,4 +1,6 @@
 import React from 'react';
+
+// Material-UI imports
 import {
     Box,
     Paper,
@@ -15,17 +17,67 @@ import {
     Alert,
     Collapse,
     IconButton,
-    useMediaQuery
+    useMediaQuery,
+    styled
 } from '@mui/material';
-import TextFieldComponent from '../TextField/TextField';
-import SelectFieldComponent from '../SelectField/SelectField';
-import CheckBoxComponent from '../Checkbox/Checkbox';
-import RadioButtonComponent from '../RadioButton/RadioButton';
-import { InputType } from '../../types';
+
+// Icon imports
 import CloseIcon from '@mui/icons-material/Close';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import ResetIcon from '@mui/icons-material/RestartAlt';
+
+// Component imports
+import TextFieldComponent from '../TextField/TextField';
+import SelectFieldComponent from '../SelectField/SelectField';
+import CheckBoxComponent from '../Checkbox/Checkbox';
+import RadioButtonComponent from '../RadioButton/RadioButton';
+
+// Types
+import { InputType } from '../../types';
+
+// Styled Components
+const StyledFormContainer = styled(Box)({
+    width: '100%',
+    maxWidth: '1200px',
+    margin: '0 auto'
+});
+
+const StyledPaper = styled(Paper)({});
+
+// Apply styles using sx prop in the component itself
+// This avoids TypeScript errors with nested responsive values
+
+const StyledFormHeader = styled(Box)({
+    marginBottom: 32 // equivalent to theme.spacing(4)
+});
+
+const StyledSectionHeader = styled(Box)({
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8, // equivalent to theme.spacing(1)
+    paddingBottom: 8 // equivalent to theme.spacing(1)
+    // We'll handle the borderBottom with the sx prop since it uses theme variables
+});
+
+const StyledFormFieldsContainer = styled(Stack)({
+    // We'll handle spacing through props
+});
+
+const StyledFormActions = styled(Box)({
+    marginTop: 32, // equivalent to theme.spacing(4)
+    display: 'flex',
+    justifyContent: 'center',
+    gap: 16, // equivalent to theme.spacing(2)
+    flexWrap: 'wrap'
+});
+
+const StyledFieldLabel = styled(Box)({
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: 4 // equivalent to theme.spacing(0.5)
+});
 
 export type Options = { value: string | number; label: string }[];
 
@@ -57,7 +109,7 @@ export interface FormProps<T> {
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
     setFormData: React.Dispatch<React.SetStateAction<T>>;
     buttonTitle: string;
-    columnsPerRow?: number; // Optional prop for number of columns per row
+    columnsPerRow?: number;
     buttonDisableLogic?: () => boolean;
     title?: string;
     subtitle?: string;
@@ -168,7 +220,7 @@ export const StandardForm = <T,>({
         };
 
         const fieldLabel = (
-            <Box display="flex" alignItems="center" mb={0.5}>
+            <StyledFieldLabel>
                 <Typography variant="body2" fontWeight={500}>
                     {valueDetail.label || valueDetail.name}
                     {valueDetail.required && <span style={{ color: theme.palette.error.main }}> *</span>}
@@ -180,7 +232,7 @@ export const StandardForm = <T,>({
                         </IconButton>
                     </Tooltip>
                 )}
-            </Box>
+            </StyledFieldLabel>
         );
 
         switch (valueDetail.type) {
@@ -275,14 +327,9 @@ export const StandardForm = <T,>({
 
         return (
             <Box key={index} sx={{ mb: 3, width: '100%' }}>
-                <Box
+                <StyledSectionHeader
                     sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
                         cursor: detail.collapsible ? 'pointer' : 'default',
-                        mb: 1,
-                        pb: 1,
                         borderBottom: `1px solid ${alpha(theme.palette.divider, 0.5)}`
                     }}
                     onClick={detail.collapsible ? () => toggleSection(sectionId) : undefined}
@@ -309,7 +356,7 @@ export const StandardForm = <T,>({
                             {isExpanded ? 'Hide' : 'Show'}
                         </Button>
                     )}
-                </Box>
+                </StyledSectionHeader>
 
                 <Collapse in={isExpanded}>
                     <Stack
@@ -349,8 +396,8 @@ export const StandardForm = <T,>({
     };
 
     return (
-        <Box sx={{ width: '100%', maxWidth: '1200px', mx: 'auto' }}>
-            <Paper
+        <StyledFormContainer>
+            <StyledPaper
                 {...actualPaperProps}
                 sx={{
                     p: { xs: 2, sm: 3, md: 4 },
@@ -358,7 +405,8 @@ export const StandardForm = <T,>({
                     ...(paperSx || {})
                 }}
             >
-                <Box mb={4}>
+
+                <StyledFormHeader>
                     <Typography variant="h5" component="h1" align="center" gutterBottom fontWeight="medium">
                         {title}
                     </Typography>
@@ -372,7 +420,7 @@ export const StandardForm = <T,>({
                             {helpText}
                         </Alert>
                     )}
-                </Box>
+                </StyledFormHeader>
 
                 <Collapse in={alertOpen}>
                     {submitSuccess && (
@@ -415,19 +463,13 @@ export const StandardForm = <T,>({
                 </Collapse>
 
                 <form onSubmit={handleSubmit}>
-                    <Stack spacing={3}>
+                    <StyledFormFieldsContainer spacing={3}>
                         {formDetails.map((detail: FormProperty, index: number) => (
                             createFormProperty(detail, index)
                         ))}
-                    </Stack>
+                    </StyledFormFieldsContainer>
 
-                    <Box
-                        mt={4}
-                        display="flex"
-                        justifyContent="center"
-                        gap={2}
-                        flexWrap="wrap"
-                    >
+                    <StyledFormActions>
                         {resetForm && (
                             <Button
                                 variant="outlined"
@@ -454,10 +496,10 @@ export const StandardForm = <T,>({
                                 buttonTitle
                             )}
                         </Button>
-                    </Box>
+                    </StyledFormActions>
                 </form>
-            </Paper>
-        </Box>
+            </StyledPaper>
+        </StyledFormContainer>
     );
 };
 
