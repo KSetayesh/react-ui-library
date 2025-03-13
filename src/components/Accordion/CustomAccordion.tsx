@@ -80,7 +80,7 @@ export interface CustomAccordionProps {
     headerBackgroundColor?: string;
 }
 
-const CustomAccordion: React.FC<CustomAccordionProps> = ({
+export const CustomAccordion: React.FC<CustomAccordionProps> = ({
     title,
     subtitle,
     icon,
