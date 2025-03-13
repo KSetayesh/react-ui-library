@@ -74,7 +74,7 @@ export interface FormProps<T> {
     helpText?: string;
 }
 
-const StandardForm = <T,>({
+export const StandardForm = <T,>({
     formDetails,
     handleSubmit,
     setFormData,
