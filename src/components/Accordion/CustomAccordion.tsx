@@ -65,7 +65,7 @@ const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
     padding: theme.spacing(3),
 }));
 
-interface CustomAccordionProps {
+export interface CustomAccordionProps {
     title: string;
     subtitle?: string;
     icon?: ReactNode;
