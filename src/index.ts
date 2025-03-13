@@ -1,4 +1,5 @@
 export * from './types';
+export * from './components/Accordion/CustomAccordion';
 export * from './components/Button/Button';
 export * from './components/RadioButton/RadioButton';
 export * from './components/CodeHighlighter/CodeHighlighter';
