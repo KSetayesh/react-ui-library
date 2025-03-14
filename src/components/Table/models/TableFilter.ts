@@ -1,5 +1,6 @@
 import { FilterOperator } from "../../../types/FilterOperator";
-import { BasicColumn } from "./BasicColumn";
+import { getNestedProperty } from "../component/TableBody";
+import { BasicColumn, TableCellValue } from "./BasicColumn";
 
 // Define value types for different operators
 export type EqualsValue = string | number | boolean | Date | null;
@@ -110,7 +111,7 @@ export class TableFilter {
         filter: ProcessedFilter<T>
     ): boolean {
         const { column, operator, value, caseSensitive = false } = filter;
-        const itemValue = item[column.accessor];
+        const itemValue: TableCellValue = getNestedProperty(item, column.accessor);
 
         // Handle null/undefined values explicitly
         if (itemValue === null || itemValue === undefined) {
@@ -120,34 +121,70 @@ export class TableFilter {
             return false;
         }
 
+        // Handle date comparisons
+        if (itemValue instanceof Date) {
+            if (operator === FilterOperator.EQUALS && value instanceof Date) {
+                return itemValue.getTime() === value.getTime();
+            }
+            if (operator === FilterOperator.NOT_EQUALS && value instanceof Date) {
+                return itemValue.getTime() !== value.getTime();
+            }
+            if (operator === FilterOperator.GREATER_THAN && value instanceof Date) {
+                return itemValue.getTime() > value.getTime();
+            }
+            if (operator === FilterOperator.LESS_THAN && value instanceof Date) {
+                return itemValue.getTime() < value.getTime();
+            }
+            if (operator === FilterOperator.GREATER_THAN_OR_EQUAL && value instanceof Date) {
+                return itemValue.getTime() >= value.getTime();
+            }
+            if (operator === FilterOperator.LESS_THAN_OR_EQUAL && value instanceof Date) {
+                return itemValue.getTime() <= value.getTime();
+            }
+            if (operator === FilterOperator.BETWEEN && Array.isArray(value) &&
+                value.length === 2 && value[0] instanceof Date && value[1] instanceof Date) {
+                const [minDate, maxDate] = value as BetweenValue<Date>;
+                return itemValue.getTime() >= minDate.getTime() && itemValue.getTime() <= maxDate.getTime();
+            }
+        }
+
         // For string operations, handle case sensitivity
-        if (typeof itemValue === 'string' && !caseSensitive) {
-            const normalizedItemValue = itemValue.toLowerCase();
+        if (typeof itemValue === 'string') {
+            const processedItemValue = caseSensitive ? itemValue : itemValue.toLowerCase();
 
             switch (operator) {
                 case FilterOperator.CONTAINS:
                 case FilterOperator.STARTS_WITH:
                 case FilterOperator.ENDS_WITH:
                     const stringValue = value as string;
-                    const normalizedValue = stringValue.toLowerCase();
+                    const processedValue = caseSensitive ? stringValue : stringValue.toLowerCase();
 
                     if (operator === FilterOperator.CONTAINS)
-                        return normalizedItemValue.includes(normalizedValue);
+                        return processedItemValue.includes(processedValue);
                     else if (operator === FilterOperator.STARTS_WITH)
-                        return normalizedItemValue.startsWith(normalizedValue);
+                        return processedItemValue.startsWith(processedValue);
                     else if (operator === FilterOperator.ENDS_WITH)
-                        return normalizedItemValue.endsWith(normalizedValue);
+                        return processedItemValue.endsWith(processedValue);
                     break;
 
                 case FilterOperator.EQUALS:
                 case FilterOperator.NOT_EQUALS:
                     if (typeof value === 'string') {
-                        const normalizedValue = value.toLowerCase();
+                        const processedValue = caseSensitive ? value : value.toLowerCase();
                         return operator === FilterOperator.EQUALS
-                            ? normalizedItemValue === normalizedValue
-                            : normalizedItemValue !== normalizedValue;
+                            ? processedItemValue === processedValue
+                            : processedItemValue !== processedValue;
                     }
                     break;
+            }
+        }
+
+        // Handle number-specific operations
+        if (typeof itemValue === 'number') {
+            if (operator === FilterOperator.BETWEEN && Array.isArray(value) && value.length === 2 &&
+                typeof value[0] === 'number' && typeof value[1] === 'number') {
+                const [min, max] = value as BetweenValue<number>;
+                return itemValue >= min && itemValue <= max;
             }
         }
 

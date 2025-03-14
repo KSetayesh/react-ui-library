@@ -60,7 +60,7 @@ class UserTable extends BasicTable<User> {
             new UserColumn({
                 key: 'id',
                 title: 'ID',
-                accessor: 'id',
+                accessor: (item) => item.id,
                 inputType: InputType.NUMBER,
                 isUrl: false,
                 isDollarAmount: false,
@@ -73,7 +73,7 @@ class UserTable extends BasicTable<User> {
             new UserColumn({
                 key: 'name',
                 title: 'Name',
-                accessor: 'name',
+                accessor: (item) => item.name,
                 inputType: InputType.TEXT,
                 isUrl: false,
                 isDollarAmount: false,
@@ -87,7 +87,7 @@ class UserTable extends BasicTable<User> {
             new UserColumn({
                 key: 'email',
                 title: 'Email',
-                accessor: 'email',
+                accessor: (item) => item.email,
                 inputType: InputType.EMAIL,
                 isUrl: true,
                 isDollarAmount: false,
@@ -100,7 +100,7 @@ class UserTable extends BasicTable<User> {
             new UserColumn({
                 key: 'role',
                 title: 'Role',
-                accessor: 'role',
+                accessor: (item) => item.role,
                 inputType: InputType.TEXT,
                 isUrl: false,
                 isDollarAmount: false,
@@ -113,7 +113,7 @@ class UserTable extends BasicTable<User> {
             new UserColumn({
                 key: 'status',
                 title: 'Status',
-                accessor: 'status',
+                accessor: (item) => item.status,
                 inputType: InputType.TEXT,
                 isUrl: false,
                 isDollarAmount: false,
@@ -126,7 +126,7 @@ class UserTable extends BasicTable<User> {
             new UserColumn({
                 key: 'salary',
                 title: 'Salary',
-                accessor: 'salary',
+                accessor: (item) => item.salary,
                 inputType: InputType.NUMBER,
                 isUrl: false,
                 isDollarAmount: true,
@@ -139,7 +139,7 @@ class UserTable extends BasicTable<User> {
             new UserColumn({
                 key: 'lastLogin',
                 title: 'Last Login',
-                accessor: 'lastLogin',
+                accessor: (item) => item.lastLogin,
                 inputType: InputType.DATE,
                 isUrl: false,
                 isDollarAmount: false,
@@ -152,7 +152,7 @@ class UserTable extends BasicTable<User> {
             new UserColumn({
                 key: 'createdAt',
                 title: 'Created At',
-                accessor: 'createdAt',
+                accessor: (item) => item.createdAt,
                 inputType: InputType.DATE,
                 isUrl: false,
                 isDollarAmount: false,

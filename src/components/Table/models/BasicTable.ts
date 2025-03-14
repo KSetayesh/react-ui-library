@@ -1,6 +1,7 @@
-import { BasicColumn } from "./BasicColumn";
+import { BasicColumn, TableCellValue } from "./BasicColumn";
 import { FileType } from "../../../types/FileType";
 import { FilterCriteria, TableFilter } from "./TableFilter";
+import { getNestedProperty } from "../component/TableBody";
 
 export type CollumnsCollection<T> = {
     columns: BasicColumn<T>[];
@@ -95,9 +96,45 @@ export class BasicTable<T> {
         }
 
         this.data.sort((a: T, b: T) => {
-            const aValue = a[column.accessor];
-            const bValue = b[column.accessor];
+            const aValue: TableCellValue = getNestedProperty(a, column.accessor);
+            const bValue: TableCellValue = getNestedProperty(b, column.accessor);
 
+            // Handle null and undefined
+            if (aValue === null || aValue === undefined) {
+                return ascending ? -1 : 1; // Nulls first if ascending, last if descending
+            }
+            if (bValue === null || bValue === undefined) {
+                return ascending ? 1 : -1; // Nulls first if ascending, last if descending
+            }
+
+            // Handle dates
+            if (aValue instanceof Date && bValue instanceof Date) {
+                return ascending
+                    ? aValue.getTime() - bValue.getTime()
+                    : bValue.getTime() - aValue.getTime();
+            }
+
+            // Handle strings case-insensitively
+            if (typeof aValue === 'string' && typeof bValue === 'string') {
+                return ascending
+                    ? aValue.localeCompare(bValue)
+                    : bValue.localeCompare(aValue);
+            }
+
+            // Handle numbers
+            if (typeof aValue === 'number' && typeof bValue === 'number') {
+                return ascending ? aValue - bValue : bValue - aValue;
+            }
+
+            // Handle booleans
+            if (typeof aValue === 'boolean' && typeof bValue === 'boolean') {
+                if (aValue === bValue) return 0;
+                return ascending
+                    ? (aValue ? 1 : -1)
+                    : (aValue ? -1 : 1);
+            }
+
+            // Fallback to generic comparison (might not be type-safe)
             if (aValue < bValue) {
                 return ascending ? -1 : 1;
             }
@@ -118,8 +155,32 @@ export class BasicTable<T> {
 
         return this._originalData.filter(item => {
             return columnsToSearch.some(column => {
-                const value = item[column.accessor];
+                const value: TableCellValue = getNestedProperty(item, column.accessor);
+
+                // Skip null and undefined values
                 if (value === null || value === undefined) return false;
+
+                // Handle different types of values
+                if (value instanceof Date) {
+                    // Search by formatted date string
+                    return value.toLocaleString().toLowerCase().includes(queryLower);
+                }
+
+                if (typeof value === 'boolean') {
+                    // Search by "true" or "false" string
+                    return value.toString().toLowerCase().includes(queryLower);
+                }
+
+                if (typeof value === 'object') {
+                    // For complex objects, try to convert to string or just skip
+                    try {
+                        return JSON.stringify(value).toLowerCase().includes(queryLower);
+                    } catch (e) {
+                        return false;
+                    }
+                }
+
+                // For strings and numbers, convert to string and search
                 return String(value).toLowerCase().includes(queryLower);
             });
         });

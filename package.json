@@ -1,6 +1,6 @@
 {
     "name": "react-ui-library-ks-dev",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
     "types": "dist/index.d.ts",
@@ -24,7 +24,8 @@
         "rollup": "rollup -c --bundleConfigAsCjs",
         "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist/types",
         "build:js": "rollup -c --bundleConfigAsCjs",
-        "build": "npm run build:types && npm run build:js"
+        "build": "npm run build:types && npm run build:js",
+        "build:full": "npm i && npm run build"
     },
     "peerDependencies": {
         "react": "^19.0.0",

@@ -1,9 +1,13 @@
 import { InputType } from "../../../types/InputType";
 
+// Define a type for primitive values commonly displayed in tables
+export type TableCellValue = string | number | boolean | Date | null | undefined;
+
 export interface BasicColumnI<T> {
     key: string;
     title: string;
-    accessor: keyof T;
+    // accessor: keyof T;
+    accessor: (item: T) => TableCellValue;
     inputType: InputType;
     isUrl: boolean;
     isDollarAmount: boolean;
@@ -19,7 +23,8 @@ export class BasicColumn<T> {
 
     protected _key: string;
     protected _title: string;
-    protected _accessor: keyof T;
+    // protected _accessor: keyof T;
+    protected _accessor: (item: T) => TableCellValue;
     protected _inputType: InputType;
     protected _isUrl: boolean;
     protected _isDollarAmount: boolean;
@@ -53,7 +58,7 @@ export class BasicColumn<T> {
         return this._title;
     }
 
-    get accessor(): keyof T {
+    get accessor(): (item: T) => TableCellValue { // keyof T {
         return this._accessor;
     }
 

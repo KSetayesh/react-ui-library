@@ -16,7 +16,7 @@ import {
     Delete as DeleteIcon
 } from '@mui/icons-material';
 import { BasicTable } from '../models/BasicTable';
-import { BasicColumn } from '../models/BasicColumn';
+import { BasicColumn, TableCellValue } from '../models/BasicColumn';
 
 // Styled Components
 const StyledTableBodyCell = styled(TableCell)(({ theme }) => ({
@@ -49,6 +49,13 @@ type TableBodyProps<T> = {
     onEdit: (event: React.MouseEvent<unknown>, row: T) => void;
     onDelete: (event: React.MouseEvent<unknown>, index: number) => void;
 };
+
+// Helper function to access nested properties
+export function getNestedProperty<T>(obj: T, accessor: (item: T) => TableCellValue): TableCellValue {
+    // If the accessor key points to a nested object (e.g., 'listingDetails'),
+    // we return the whole nested object to be processed by formatCellValue
+    return accessor(obj);
+}
 
 function TableBody<T>({
     table,
@@ -117,7 +124,13 @@ function TableBody<T>({
                         )}
 
                         {columns.map(column => {
-                            const cellValue = row[column.accessor];
+                            // Get the value at the path specified by accessor
+                            const cellValue: TableCellValue = getNestedProperty(row, column.accessor);
+
+                            // For nested properties like 'listingDetails', we might need to 
+                            // pass the entire row to formatCellValue if the column knows how to extract nested values
+                            // const valueToFormat = cellValue !== undefined ? cellValue : row;
+
                             // Use the column's formatCellValue method
                             const displayValue = column.formatCellValue(cellValue);
 
