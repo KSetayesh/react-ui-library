@@ -9,7 +9,7 @@ export { default as TableComponent } from './component/TableComponent';
 
 // Export models
 export { BasicTable, BasicTableI } from './models/BasicTable';
-export { BasicColumn, BasicColumnI } from './models/BasicColumn';
+export { BasicColumn, BasicColumnI, TableCellValue } from './models/BasicColumn';
 export { TableFilter } from './models/TableFilter';
 
 // Export hooks
